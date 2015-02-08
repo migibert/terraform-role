@@ -11,10 +11,12 @@ Install it with `ansible-galaxy install migibert.terraform`
 Role Variables
 --------------
 
-Here are the role variables and their default values.
+Here are the role variables and their default values. Default password for user terraform is terraform.
 ```
 terraform_version: 0.3.6
 terraform_dir: /opt/terraform
+terraform_user: terraform
+terraform_user_password: $6$uoCgixKJL4cFyIT$U7FisaA6GAdosBpGde.4NS00vaAg4tGmR63eBQQMsd8LiHUjetq6HDXG10719JwbNmQUSLzvG6zq8DOVOggIw1
 ```
 
 Example Playbook

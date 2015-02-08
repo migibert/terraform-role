@@ -1,15 +1,33 @@
 ---
+- name: Create terraform user
+  user:
+    name: "{{terraform_user}}"
+    password: "{{terraform_user_password}}"
+
 - include: download.yml
 
 - name: Create Terraform directory
   file:
     path: "{{terraform_dir}}"
     state: directory
+    owner: "{{terraform_user}}"
+    group: "{{terraform_user}}"
 
 - name: Unarchive Terraform archive
   unarchive:
     src: /tmp/terraform-{{terraform_version}}.zip
     dest: "{{terraform_dir}}"
 
+- name: Make terraform_user terraform directory owner
+  file:
+    path: "{{terraform_dir}}"
+    state: directory
+    owner: "{{terraform_user}}"
+    group: "{{terraform_user}}"
+    recurse: yes
+
 - name: Adding terraform command to user path
-  command: ln -s {{terraform_dir}}/terraform /usr/bin/terraform
+  file: 
+    src: "{{terraform_dir}}/terraform"
+    dest: /usr/bin/terraform
+    state: link
