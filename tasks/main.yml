@@ -1,2 +1,15 @@
 ---
-# tasks file for terraform-role
+- include: download.yml
+
+- name: Create Terraform directory
+  file:
+    path: "{{terraform_dir}}"
+    state: directory
+
+- name: Unarchive Terraform archive
+  unarchive:
+    src: /tmp/terraform-{{terraform_version}}.zip
+    dest: "{{terraform_dir}}"
+
+- name: Adding terraform command to user path
+  command: ln -s {{terraform_dir}}/terraform /usr/bin/terraform

@@ -1,2 +1,4 @@
 ---
 # defaults file for terraform-role
+terraform_version: 0.3.6
+terraform_dir: /opt/terraform
