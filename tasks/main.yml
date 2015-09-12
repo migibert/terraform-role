@@ -4,8 +4,6 @@
     name: "{{terraform_user}}"
     password: "{{terraform_user_password}}"
 
-- include: download.yml
-
 - name: Create Terraform directory
   file:
     path: "{{terraform_dir}}"
@@ -13,10 +11,20 @@
     owner: "{{terraform_user}}"
     group: "{{terraform_user}}"
 
+- name: Check terraform version
+  shell: "terraform --version 2>&1 | grep {{terraform_version}}"
+  failed_when: false
+  changed_when: false
+  register: terraform_versions_match
+
+- include: download.yml
+  when: terraform_versions_match.rc != 0
+
 - name: Unarchive Terraform archive
   unarchive:
     src: /tmp/terraform-{{terraform_version}}.zip
     dest: "{{terraform_dir}}"
+  when: terraform_versions_match.rc != 0
 
 - name: Make terraform_user terraform directory owner
   file:
