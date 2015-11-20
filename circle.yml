@@ -15,4 +15,5 @@ test:
   override:    
     - ansible-playbook --syntax-check -i inventory $PLAYBOOK
     - ansible-playbook --list-tasks -i inventory $PLAYBOOK
-    - sudo ansible-playbook --connection=local -i inventory $PLAYBOOK   
+    - sudo ansible-playbook --connection=local -i inventory $PLAYBOOK
+    - sudo ansible-playbook --connection=local -i inventory $PLAYBOOK | grep -q 'changed=0.*failed=0'   
