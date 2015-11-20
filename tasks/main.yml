@@ -21,10 +21,16 @@
 - include: download.yml
   when: terraform_versions_match.rc != 0
 
+- name: Install unzip to unarchive terraform
+  apt:
+    name: unzip
+    state: present
+
 - name: Unarchive Terraform archive
   unarchive:
     src: /tmp/terraform-{{terraform_version}}.zip
     dest: "{{terraform_dir}}"
+    copy: no
   when: terraform_versions_match.rc != 0 or terraform_directory | changed
 
 - name: Make terraform_user terraform directory owner
