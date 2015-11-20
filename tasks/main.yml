@@ -10,6 +10,7 @@
     state: directory
     owner: "{{terraform_user}}"
     group: "{{terraform_user}}"
+  register: terraform_directory
 
 - name: Check terraform version
   shell: "terraform --version 2>&1 | grep {{terraform_version}}"
@@ -24,7 +25,7 @@
   unarchive:
     src: /tmp/terraform-{{terraform_version}}.zip
     dest: "{{terraform_dir}}"
-  when: terraform_versions_match.rc != 0
+  when: terraform_versions_match.rc != 0 or terraform_directory | changed
 
 - name: Make terraform_user terraform directory owner
   file:
