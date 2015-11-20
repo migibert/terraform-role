@@ -21,6 +21,11 @@
 - include: download.yml
   when: terraform_versions_match.rc != 0
 
+- name: Install unzip to unarchive terraform
+  apt:
+    name: unzip
+    state: present
+
 - name: Unarchive Terraform archive
   unarchive:
     src: /tmp/terraform-{{terraform_version}}.zip
