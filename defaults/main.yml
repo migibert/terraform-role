@@ -1,6 +1,6 @@
 ---
 # defaults file for terraform-role
-terraform_version: 0.3.6
+terraform_version: 0.6.11
 terraform_dir: /opt/terraform
 terraform_user: terraform
 terraform_user_password: $6$uoCgixKJL4cFyIT$U7FisaA6GAdosBpGde.4NS00vaAg4tGmR63eBQQMsd8LiHUjetq6HDXG10719JwbNmQUSLzvG6zq8DOVOggIw1
