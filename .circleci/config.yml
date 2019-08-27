@@ -1,0 +1,28 @@
+version: 2
+
+jobs:
+  build:
+    environment:
+      TEST_DIR: terraform-role/tests
+
+    machine:
+      image: ubuntu-1604:201903-01
+
+    steps:
+      - checkout
+      - run: cp -r tests ~/tests
+      - run: mkdir ~/tests/roles
+      - run: sudo ln -s $(pwd) ~/tests/roles/migibert.terraform
+      - run: sudo pip install ansible
+      - run: 
+          command: ansible-playbook --syntax-check -i inventory example.yml
+          working_directory: ~/tests
+      - run:
+          command: ansible-playbook --list-tasks -i inventory example.yml
+          working_directory: ~/tests
+      - run:
+          command: sudo ansible-playbook --connection=local -i inventory example.yml
+          working_directory: ~/tests
+      - run:
+          command: "sudo ansible-playbook --connection=local -i inventory example.yml | grep -q 'changed=0.*failed=0'"
+          working_directory: ~/tests

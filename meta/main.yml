@@ -3,14 +3,23 @@ galaxy_info:
   author: Mikael Gibert
   description: Terraform installation
   license: MIT
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
   platforms:
-  - name: Ubuntu
-    versions:
-    - all  
-  - name: Debian
-    versions:
-    - all
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: GenericUNIX
+      versions:
+        - all
   categories:
   - cloud
 dependencies: []
