@@ -13,7 +13,7 @@
   register: terraform_directory
 
 - name: Check terraform version
-  shell: "terraform --version 2>&1 | head -n 1 | grep {{terraform_version}}"
+  shell: "terraform version 2>&1 | head -n 1 | grep -q {{terraform_version}}"
   failed_when: false
   changed_when: false
   register: terraform_versions_match
@@ -31,7 +31,7 @@
     src: /tmp/terraform-{{terraform_version}}.zip
     dest: "{{terraform_dir}}"
     copy: no
-  when: terraform_versions_match.rc != 0 or terraform_directory | changed
+  when: terraform_versions_match.rc != 0 or terraform_directory is changed
 
 - name: Make terraform_user terraform directory owner
   file:
