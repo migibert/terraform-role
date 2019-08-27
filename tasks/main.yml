@@ -22,7 +22,7 @@
   when: terraform_versions_match.rc != 0
 
 - name: Install unzip to unarchive terraform
-  apt:
+  package:
     name: unzip
     state: present
 
